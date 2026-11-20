@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cocok-api",
+  "main": "src/index.ts",
+  "account_id": "519a19168b85622ae3389900cc145d89",
+  "compatibility_date": "2026-11-18",
+  "workers_dev": true,
+  "preview_urls": false,
+  "send_metrics": false,
+  "vars": {
+    "APP_ENV": "production"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cocok-db",
+      "database_id": "be04939d-aed1-4795-b8a4-d44c974bfde1",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "cocok-photos"
+    }
+  ],
+  "env": {
+    "staging": {
+      "name": "cocok-api-staging",
+      "vars": {
+        "APP_ENV": "staging"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "cocok-db-staging",
+          "database_id": "96782bd6-8b5c-41a6-a340-10eb81b8ee26",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "PHOTOS",
+          "bucket_name": "cocok-photos-staging"
+        }
+      ]
+    }
+  }
+}

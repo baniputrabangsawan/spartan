@@ -1,0 +1,19 @@
+# Android machine-local configuration and generated output
+android/local.properties
+android/.gradle/
+android/.kotlin/
+android/**/build/
+android/captures/
+*.apk
+*.aab
+
+# Worker dependencies, generated output, local state, and secrets
+api/node_modules/
+api/dist/
+api/.wrangler/
+api/.dev.vars*
+api/.env*
+!api/.env.example
+
+# Agent/MCP configuration holds absolute paths for this machine only
+.omp/

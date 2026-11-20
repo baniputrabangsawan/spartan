@@ -1,0 +1,24 @@
+{
+  "name": "cocok-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --env staging",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "migrate:local": "wrangler d1 migrations apply cocok-db-staging --local --env staging",
+    "migrate:staging": "wrangler d1 migrations apply cocok-db-staging --remote --env staging",
+    "migrate:production": "wrangler d1 migrations apply cocok-db --remote"
+  },
+  "dependencies": {
+    "hono": "4.13.19"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261117.1",
+    "typescript": "7.0.2",
+    "wrangler": "4.164.0"
+  }
+}

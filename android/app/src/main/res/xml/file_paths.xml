@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foto hanya disimpan sementara di cache aplikasi, lalu dibagikan lewat URI ini. -->
+<paths>
+    <cache-path name="foto" path="foto/" />
+</paths>

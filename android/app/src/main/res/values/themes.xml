@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DESIGN.md: latar selalu putih, kontras tinggi, tidak ada mode gelap.
+         Tema memaksa terang supaya warna label (hijau/kuning/merah/abu) tetap
+         terbaca persis seperti yang ditetapkan. -->
+    <style name="Theme.Cocok" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#FFFFFFFF</item>
+        <item name="android:statusBarColor">#FFFFFFFF</item>
+        <item name="android:navigationBarColor">#FFFFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
