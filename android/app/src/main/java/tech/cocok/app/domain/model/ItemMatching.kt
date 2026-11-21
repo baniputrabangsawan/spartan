@@ -10,7 +10,16 @@ data class MatchItem(
     val categoryId: String? = null,
     val photo: String? = null,
     val specifications: Map<String, String> = emptyMap(),
+    /**
+     * Set only while this item is an unmodified catalog row. This is the trust
+     * boundary for verification, so editing clears it.
+     */
     val catalogPartId: String? = null,
+    /**
+     * The catalog row this item was derived from, kept across edits so filled-in
+     * specifications can still be saved back. Never grants trust on its own.
+     */
+    val linkedCatalogPartId: String? = null,
     val sourceUrl: String? = null,
     val origin: CandidateOrigin = CandidateOrigin.INPUT,
 )

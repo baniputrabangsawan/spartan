@@ -57,15 +57,19 @@ internal class MatchViewModel(application: Application) : AndroidViewModel(appli
     fun setPhoto(reference: String) = mutable.update { it.copy(photo = reference) }
 
     /**
-     * Editing identity/specs must not inherit trust from a catalog row: the item
-     * becomes plain input, so no verification or "same item" label can ride along.
+     * Editing identity/specs must not inherit trust from a catalog row, but it must
+     * keep the row addressable: clearing `catalogPartId` also hid the "save specs"
+     * action, so filled-in specs were silently lost.
      */
     fun editItem(id: String, transform: (MatchItem) -> MatchItem) = mutable.update { state ->
-        val edited = transform(
-            if (state.source?.id == id) state.source
-            else state.candidates.firstOrNull { it.item.id == id }?.item
-            ?: return@update state,
-        ).copy(catalogPartId = null, origin = CandidateOrigin.INPUT)
+        val original = if (state.source?.id == id) state.source
+        else state.candidates.firstOrNull { it.item.id == id }?.item
+            ?: return@update state
+        val edited = transform(original).copy(
+            catalogPartId = null,
+            linkedCatalogPartId = original.linkedCatalogPartId ?: original.catalogPartId,
+            origin = CandidateOrigin.INPUT,
+        )
         state.copy(
             source = if (state.source?.id == id) edited else state.source,
             candidates = state.candidates.map { if (it.item.id == id) it.copy(item = edited) else it },

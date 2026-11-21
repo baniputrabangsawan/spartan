@@ -43,9 +43,9 @@ class MatchParts {
         photo = part.photoKey,
         specifications = part.specifications,
         catalogPartId = part.id,
+        linkedCatalogPartId = part.id,
         origin = CandidateOrigin.CATALOG,
     )
-
     fun discover(
         catalog: Catalog,
         query: String,

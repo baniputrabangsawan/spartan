@@ -211,11 +211,22 @@ fun CocokApp(vm: CocokViewModel = viewModel()) {
 
                     hasil != null -> {
                         val judul = hasil!!
-                        val hits = remember(judul, state.catalog) { vm.cari(judul) }
+                        // Searching inside remember() blocked composition for the whole
+                        // query (~165 ms on a 20k-part catalog). Run it off the main thread
+                        // so the screen paints at once and shows a loading state.
+                        var hits by androidx.compose.runtime.remember(judul) {
+                            androidx.compose.runtime.mutableStateOf<List<SearchHit>?>(null)
+                        }
+                        androidx.compose.runtime.LaunchedEffect(judul, state.catalog) {
+                            hits = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                                vm.cari(judul)
+                            }
+                        }
                         HasilScreen(
                             vm = vm,
                             judul = judul,
-                            hits = hits,
+                            hits = hits.orEmpty(),
+                            memuat = hits == null,
                             onKembali = { hasil = null },
                             onBukaDetail = { detail = it },
                             onTambahSendiri = { hasil = null; tab = Tab.TAMBAH },

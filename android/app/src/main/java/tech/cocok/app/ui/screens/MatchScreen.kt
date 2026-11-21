@@ -571,17 +571,19 @@ fun MatchScreen(
                         }
 
                         listOf(source, chosen.item).forEach { item ->
-                            if (item.catalogPartId == null) {
+                            if (item.catalogPartId == null && item.linkedCatalogPartId == null) {
                                 TombolGaris(
                                     teks = "Simpan \"${item.name.take(28)}\" ke data toko",
                                     onClick = { vm.simpanItemSebagaiBarang(item) },
                                 )
-                            } else if (!item.specifications.isEmpty()) {
-                                // Edited specs of an existing catalog row must persist, or the
-                                // next comparison silently starts from empty data again.
+                            }
+                            val target = item.linkedCatalogPartId
+                            if (target != null && item.specifications.isNotEmpty()) {
+                                // Was keyed off catalogPartId, which editing clears - so the
+                                // action never appeared and filled-in specs were discarded.
                                 TombolGaris(
                                     teks = "Simpan spesifikasi \"${item.name.take(22)}\"",
-                                    onClick = { vm.simpanSpesifikasi(item.catalogPartId, item.specifications) },
+                                    onClick = { vm.simpanSpesifikasi(target, item.specifications) },
                                 )
                             }
                         }

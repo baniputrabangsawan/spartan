@@ -1,6 +1,8 @@
 package tech.cocok.app.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,6 +58,7 @@ fun HasilScreen(
     vm: CocokViewModel,
     judul: String,
     hits: List<SearchHit>,
+    memuat: Boolean = false,
     onKembali: () -> Unit,
     onBukaDetail: (SearchHit) -> Unit,
     onTambahSendiri: () -> Unit,
@@ -81,6 +85,42 @@ fun HasilScreen(
                 color = CocokColors.Teks,
                 modifier = Modifier.weight(1f),
             )
+        }
+
+        if (memuat) {
+            // Empty list used to mean "no results"; while a background search runs it
+            // would flash the empty state, so it is distinguished explicitly.
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(horizontal = Dimensi.JarakLayar),
+                verticalArrangement = Arrangement.spacedBy(Dimensi.JarakAntarTombol),
+            ) {
+                items(4) {
+                    Kartu(border = true) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            Box(
+                                Modifier
+                                    .size(72.dp)
+                                    .background(CocokColors.BelumLatar, androidx.compose.foundation.shape.RoundedCornerShape(12.dp)),
+                            )
+                            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Box(
+                                    Modifier
+                                        .fillMaxWidth(0.7f)
+                                        .height(18.dp)
+                                        .background(CocokColors.BelumLatar, androidx.compose.foundation.shape.RoundedCornerShape(6.dp)),
+                                )
+                                Box(
+                                    Modifier
+                                        .fillMaxWidth(0.4f)
+                                        .height(16.dp)
+                                        .background(CocokColors.BelumLatar, androidx.compose.foundation.shape.RoundedCornerShape(6.dp)),
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            return@Column
         }
 
         if (hits.isEmpty()) {

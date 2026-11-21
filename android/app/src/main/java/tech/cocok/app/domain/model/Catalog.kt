@@ -15,16 +15,35 @@ data class Catalog(
     val confirmations: List<Confirmation> = emptyList(),
     val matchEvidence: List<MatchEvidence> = emptyList(),
 ) {
-    fun kategori(id: String): PartCategory? = categories.firstOrNull { it.id == id }
-    fun kendaraan(id: String): Vehicle? = vehicles.firstOrNull { it.id == id }
-    fun grup(id: String): FitmentGroup? = groups.firstOrNull { it.id == id }
-    fun part(id: String): Part? = parts.firstOrNull { it.id == id }
+    // Derived lookup indexes, built once per immutable Catalog instance. Id lookups
+    // used linear scans and dominated search/compare on a 20k-part catalog.
+    private val grupById: Map<String, FitmentGroup> by lazy { groups.associateBy { it.id } }
+    private val partById: Map<String, Part> by lazy { parts.associateBy { it.id } }
+    private val kendaraanById: Map<String, Vehicle> by lazy { vehicles.associateBy { it.id } }
+    private val kategoriById: Map<String, PartCategory> by lazy { categories.associateBy { it.id } }
+    private val statusPerGrupPart: Map<Pair<String, String>, Status> by lazy {
+        groupParts.associateTo(HashMap(groupParts.size)) { (it.groupId to it.partId) to it.status }
+    }
+    private val grupPerPart: Map<String, String> by lazy {
+        groupParts.associateTo(HashMap(groupParts.size)) { it.partId to it.groupId }
+    }
+    private val partsPerGrup: Map<String, List<Part>> by lazy {
+        groupParts.groupBy({ it.groupId }, { it.partId })
+            .mapValues { (_, ids) -> ids.mapNotNull { partById[it] } }
+    }
 
-    fun partDiGrup(groupId: String): List<Part> =
-        groupParts.filter { it.groupId == groupId }.mapNotNull { part(it.partId) }
+    fun kategori(id: String): PartCategory? = kategoriById[id]
+    fun kendaraan(id: String): Vehicle? = kendaraanById[id]
+    fun grup(id: String): FitmentGroup? = grupById[id]
+    fun part(id: String): Part? = partById[id]
+
+    fun partDiGrup(groupId: String): List<Part> = partsPerGrup[groupId].orEmpty()
+
+    /** Grup tempat sebuah barang tercatat, bila ada. */
+    fun grupDariPart(partId: String): String? = grupPerPart[partId]
 
     fun statusPart(groupId: String, partId: String): Status =
-        groupParts.firstOrNull { it.groupId == groupId && it.partId == partId }?.status ?: Status.BELUM_ADA_DATA
+        statusPerGrupPart[groupId to partId] ?: Status.BELUM_ADA_DATA
 
     /** Kecocokan untuk satu mobil + tahun, hanya pada satu jenis barang. */
     fun fitmentUntuk(vehicleId: String, tahun: Int?, categoryId: String?): List<Fitment> =

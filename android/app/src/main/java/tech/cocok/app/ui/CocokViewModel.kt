@@ -142,13 +142,24 @@ class CocokViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    fun simpanSpesifikasi(partId: String, specifications: Map<String, String>) {
-        if (_state.value.catalog.part(partId) == null) return
+    /**
+     * Saves edited specifications onto an existing catalog row. A missing row is
+     * reported instead of silently doing nothing - that silence hid the defect
+     * where the target id was always null after editing.
+     */
+    fun simpanSpesifikasi(partId: String?, specifications: Map<String, String>): Boolean {
+        if (partId == null || _state.value.catalog.part(partId) == null) {
+            _state.update {
+                it.copy(masalah = "Spesifikasi belum bisa disimpan: barangnya tidak ada di data toko.")
+            }
+            return false
+        }
         simpan("Spesifikasi tersimpan di HP.") {
             it.copy(parts = it.parts.map { part ->
                 if (part.id == partId) part.copy(specifications = specifications) else part
             })
         }
+        return true
     }
 
     /** Owner-only, scoped evidence. Refusal keeps the previous catalog untouched. */
