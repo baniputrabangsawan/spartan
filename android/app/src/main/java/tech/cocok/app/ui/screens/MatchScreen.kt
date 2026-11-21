@@ -67,6 +67,7 @@ import tech.cocok.app.ui.MatchState
 import tech.cocok.app.ui.MatchViewModel
 import tech.cocok.app.ui.components.BarisJudul
 import tech.cocok.app.ui.components.ChipPilihan
+import tech.cocok.app.ui.components.FotoProduk
 import tech.cocok.app.ui.components.Kartu
 import tech.cocok.app.ui.components.StatusChip
 import tech.cocok.app.ui.components.TombolGaris
@@ -325,18 +326,39 @@ fun MatchScreen(
                     if (match.internet.isNotEmpty()) {
                         BarisJudul("Hasil gambar internet (kandidat)")
                         match.internet.forEach { image ->
-                            Kartu(onClick = {
-                                chosenId = model.useInternetCandidate(image)
-                                langkah = Langkah.BANDING
-                            }, border = true) {
-                                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Text(image.title, style = MaterialTheme.typography.bodyLarge, maxLines = 3)
-                                    Text(Uri.parse(image.sourceUrl).host.orEmpty(), style = MaterialTheme.typography.bodySmall)
-                                    Text(
-                                        "Bandingkan",
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = CocokColors.BiruUtama,
+                            Kartu(border = true) {
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    FotoProduk(
+                                        ukuran = 96.dp,
+                                        alamat = image.thumbnailUrl,
+                                        inisial = inisialDari(image.title),
                                     )
+                                    Column(
+                                        modifier = Modifier.weight(1f),
+                                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                                    ) {
+                                        Text(
+                                            image.title,
+                                            style = MaterialTheme.typography.bodyLarge,
+                                            color = CocokColors.Teks,
+                                            maxLines = 3,
+                                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                                        )
+                                        Text(
+                                            Uri.parse(image.sourceUrl).host.orEmpty(),
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = CocokColors.TeksPendamping,
+                                        )
+                                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                            TextButton(onClick = {
+                                                chosenId = model.useInternetCandidate(image)
+                                                langkah = Langkah.BANDING
+                                            }) { Text("Bandingkan") }
+                                            TextButton(onClick = { buka(image.sourceUrl) }) {
+                                                Text("Buka sumber")
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -654,6 +676,7 @@ private fun IdentitasKartu(judul: String, item: MatchItem, modifier: Modifier = 
     Kartu(modifier = modifier, border = true) {
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(judul, style = MaterialTheme.typography.labelLarge, color = CocokColors.TeksPendamping)
+            FotoProduk(ukuran = 88.dp, alamat = item.photo, inisial = inisialDari(item.name))
             Text(item.name, style = MaterialTheme.typography.titleSmall, color = CocokColors.Teks, maxLines = 3)
             Text(item.partNumber ?: "Nomor part belum ada", style = MaterialTheme.typography.bodySmall)
             item.brand?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
@@ -670,6 +693,10 @@ private fun IdentitasKartu(judul: String, item: MatchItem, modifier: Modifier = 
         }
     }
 }
+
+/** Inisial 2-3 huruf sebagai pengganti foto yang belum atau tidak termuat. */
+private fun inisialDari(nama: String): String =
+    nama.split(' ').filter { it.isNotBlank() }.take(2).joinToString(" ") { it.take(3).uppercase() }
 
 @Composable
 private fun warna(kind: ComparisonKind) = when (kind) {

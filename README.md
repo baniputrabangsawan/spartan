@@ -256,6 +256,8 @@ Judul layar 24 sp tebal · nama barang 22 sp tebal · label hasil 20 sp tebal ka
 |---|---|
 | **Cari** | kotak cari besar, tombol "Cari padanan barang", chip kategori/mobil sering dicari, riwayat |
 | **Pencocokan** | sumber (foto/galeri/kata kunci/data toko) → kandidat beralasan → perbandingan + verifikasi pemilik |
+| **Hasil gambar internet** | kartu bergaya ImageSearchMan: **foto produk**, judul, nama situs, tombol **Bandingkan** dan **Buka sumber**. Foto memakai thumbnail asli hasil pencarian (Coil); bila gagal dimuat, tampil inisial — bukan kotak kosong |
+| **Perbandingan** | dua kartu identitas **dengan foto** berdampingan, lalu baris spesifikasi yang bisa diisi |
 | **Hasil** | satu kartu per barang, foto kiri, label; `tidak_cocok` disembunyikan tapi bisa dibuka |
 | **Detail** | foto, nomor part asli/merek lain, "Cocok untuk", catatan, tombol konfirmasi (tombol status hanya untuk pemilik) |
 | **Bandingkan** | tiga kotak berurutan → satu jawaban besar SAMA/BEDA/BELUM TAHU |
@@ -272,6 +274,11 @@ Judul layar 24 sp tebal · nama barang 22 sp tebal · label hasil 20 sp tebal ka
 | Ada masalah | pesan jelas + satu tombol coba lagi |
 
 Aksesibilitas: kontras ≥ 4.5:1, area ketuk 56 dp, bisa dipakai satu tangan, tanpa animasi mengganggu.
+
+Catatan implementasi foto: `FotoProduk` (komponen bersama) merender URL https maupun
+path lokal dengan `SubcomposeAsyncImage`; keadaan memuat/gagal selalu jatuh ke inisial.
+Test `FotoProdukTest` membuktikan thumbnail jaringan benar-benar ter-decode, dan
+`KeywordPhotoGridTest` menjaga tombol pencarian gambar tetap terjangkau tanpa foto.
 
 ---
 

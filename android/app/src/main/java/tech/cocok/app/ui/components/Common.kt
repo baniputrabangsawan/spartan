@@ -22,10 +22,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.SubcomposeAsyncImage
 import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
@@ -137,6 +139,35 @@ fun FotoBarang(
             textAlign = TextAlign.Center,
         )
     }
+}
+
+/**
+ * Foto produk persegi untuk hasil internet maupun katalog.
+ *
+ * [alamat] boleh URL https (thumbnail hasil pencarian) atau path/URI lokal.
+ * Selama memuat, gagal, atau kosong, tampil inisial - kartu tidak pernah
+ * berupa kotak kosong tanpa keterangan.
+ */
+@Composable
+fun FotoProduk(
+    ukuran: androidx.compose.ui.unit.Dp,
+    alamat: String?,
+    inisial: String,
+    modifier: Modifier = Modifier,
+) {
+    val bentuk = RoundedCornerShape(12.dp)
+    if (alamat.isNullOrBlank()) {
+        FotoBarang(ukuran, inisial, modifier)
+        return
+    }
+    SubcomposeAsyncImage(
+        model = alamat,
+        contentDescription = "Foto $inisial",
+        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+        modifier = modifier.size(ukuran).clip(bentuk),
+        loading = { FotoBarang(ukuran, inisial, Modifier) },
+        error = { FotoBarang(ukuran, inisial, Modifier) },
+    )
 }
 
 /** Chip pilihan yang bisa diketuk (mobil, tahun, kategori). */
