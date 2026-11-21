@@ -138,7 +138,9 @@ fun MatchScreen(
     // Compare by identity: edited/internet items carry no catalogPartId, so filtering
     // on that field would hide exactly the candidates being compared.
     val candidates = match.candidates.filter { it.item.id != source?.id }
-    val chosen = chosenId?.let { id -> candidates.firstOrNull { it.item.id == id } }
+    // Look the pick up in the full list: the source is excluded from the visible
+    // candidates, and a candidate must never be lost because of that exclusion.
+    val chosen = chosenId?.let { id -> match.candidates.firstOrNull { it.item.id == id } }
     val konteks = MatchContext(
         vehicleId = vehicleId.ifBlank { null },
         year = tahun.toIntOrNull(),
@@ -227,7 +229,9 @@ fun MatchScreen(
                     }
                     TombolUtama("Cari kandidat", onClick = {
                         keyboard?.hide()
-                        model.searchLocal(store.catalog)
+                        // Typed text (or the OCR text) is the source name until a store
+                        // item is chosen, so the comparison screen is never empty.
+                        model.searchLocal(store.catalog, label = match.keyword)
                         langkah = Langkah.KANDIDAT
                     }, ikon = Icons.Filled.Search)
 

@@ -86,16 +86,32 @@ internal class MatchViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun searchLocal(catalog: Catalog, context: MatchContext = MatchContext()) {
+    /**
+     * Keyword/photo discovery. The typed text becomes an explicit INPUT source, so
+     * picking a candidate always has two sides to compare. Without this the compare
+     * step had no source and showed "pilih ulang" - a dead end.
+     */
+    fun searchLocal(catalog: Catalog, context: MatchContext = MatchContext(), label: String? = null) {
         localRequest?.cancel()
-        mutable.update { it.copy(localLoading = true, error = null, candidates = emptyList()) }
+        val query = mutable.value.keyword.trim()
+        val nama = label?.trim()?.takeIf { it.isNotEmpty() } ?: query
+        val source = mutable.value.source?.takeIf { it.origin == CandidateOrigin.CATALOG }
+            ?: MatchItem(
+                id = "src-" + UUID.nameUUIDFromBytes("$nama|${mutable.value.photo}".toByteArray()).toString(),
+                name = nama.ifBlank { "Barang yang dicari" },
+                photo = mutable.value.photo,
+                origin = CandidateOrigin.INPUT,
+            )
+        mutable.update {
+            it.copy(source = source, localLoading = true, error = null, candidates = emptyList())
+        }
         localRequest = viewModelScope.launch {
             try {
                 val found = parts.discover(
                     catalog = catalog,
-                    query = mutable.value.keyword,
+                    query = query,
                     fromPhoto = mutable.value.photo != null,
-                    sourcePartId = mutable.value.source?.catalogPartId,
+                    sourcePartId = source.catalogPartId,
                     context = context,
                 )
                 mutable.update { it.copy(localLoading = false, candidates = found) }
@@ -205,8 +221,22 @@ internal class MatchViewModel(application: Application) : AndroidViewModel(appli
     fun useInternetCandidate(image: InternetImage): String {
         val candidate = candidateFromImage(image)
         mutable.update { state ->
-            if (state.candidates.any { it.item.id == candidate.item.id }) state
-            else state.copy(candidates = state.candidates + candidate)
+            // Photo search has no catalog source; the photo itself becomes the source
+            // so the comparison always has two sides instead of dead-ending.
+            val source = state.source ?: MatchItem(
+                id = "src-" + UUID.nameUUIDFromBytes("foto|${state.photo}".toByteArray()).toString(),
+                name = state.keyword.ifBlank { "Foto yang dicari" },
+                photo = state.photo,
+                origin = CandidateOrigin.INPUT,
+            )
+            state.copy(
+                source = source,
+                candidates = if (state.candidates.any { it.item.id == candidate.item.id }) {
+                    state.candidates
+                } else {
+                    state.candidates + candidate
+                },
+            )
         }
         return candidate.item.id
     }
