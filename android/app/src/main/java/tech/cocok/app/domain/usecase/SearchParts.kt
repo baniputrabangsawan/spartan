@@ -14,11 +14,11 @@ import tech.cocok.app.domain.search.QueryParser
 import tech.cocok.app.domain.search.TextMatch
 
 /**
- * Satu pencarian lengkap di HP (ARCHITECTURE.md §7.2):
+ * Satu pencarian lengkap di HP (README §6.2):
  * mobil + tahun + kategori -> fitments -> grup -> barang, urut status.
  *
  * Bila mobil atau kategori belum jelas, hasilnya tetap kandidat yang bisa
- * diketuk — tidak pernah galat (DESIGN.md §8.1).
+ * diketuk — tidak pernah galat (README §7.5).
  */
 class SearchParts {
 
@@ -224,7 +224,7 @@ class SearchParts {
         return TextMatch.semuaCocok(kata, teks)
     }
 
-    /** Barang pengganti: semua part lain di grup yang sama (ARCHITECTURE.md §7.4). */
+    /** Barang pengganti: semua part lain di grup yang sama (README §6.4). */
     fun pengganti(catalog: Catalog, part: Part): List<SearchHit> {
         val grup = catalog.groups.firstOrNull { g ->
             catalog.groupParts.any { it.groupId == g.id && it.partId == part.id }

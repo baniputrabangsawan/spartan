@@ -45,7 +45,7 @@ import tech.cocok.app.ui.theme.Dimensi
 private enum class ModeTambah { PILIH, BARANG, MOBIL, HUBUNGKAN }
 
 /**
- * Layar TAMBAH (DESIGN.md §8.5): tiga pilihan besar, lalu formulir pendek.
+ * Layar TAMBAH (README §7.5): tiga pilihan besar, lalu formulir pendek.
  * Semua data baru mulai dari "mungkin" — hanya pemilik yang bisa menaikkannya.
  */
 @Composable

@@ -3,7 +3,7 @@ package tech.cocok.app.ui.theme
 import androidx.compose.ui.graphics.Color
 
 /**
- * Warna persis dari DESIGN.md §4. Jangan menambah warna lain di layar:
+ * Warna persis dari README §7.2. Jangan menambah warna lain di layar:
  * satu warna utama, sisanya hanya untuk label status.
  */
 object CocokColors {
@@ -24,7 +24,7 @@ object CocokColors {
     val BelumTeks = Color(0xFF5F6368)
     val BelumLatar = Color(0xFFEEF0F2)
 
-    /** Pita offline (DESIGN.md §9) memakai nuansa kuning label "mungkin". */
+    /** Pita offline (README §7.6) memakai nuansa kuning label "mungkin". */
     val PitaOfflineLatar = MungkinLatar
     val PitaOfflineTeks = MungkinTeks
 

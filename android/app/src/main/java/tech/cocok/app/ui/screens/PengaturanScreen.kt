@@ -42,7 +42,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Layar masuk. Tidak ada pendaftaran terbuka (ARCHITECTURE.md §6):
+ * Layar masuk. Tidak ada pendaftaran terbuka (README §2, §8.4):
  * akun dibuat pemilik. Di versi tampilan ini peran dipilih langsung.
  */
 @Composable

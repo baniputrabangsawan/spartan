@@ -30,7 +30,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Label hasil: warna + ikon + kata + kalimat (DESIGN.md §3).
+ * Label hasil: warna + ikon + kata + kalimat (README §7.1).
  * Selalu tiga-tiganya, jadi tetap terbaca oleh pengguna buta warna.
  */
 data class TampilanStatus(
@@ -73,7 +73,7 @@ fun Status.tampilan(): TampilanStatus = when (this) {
 }
 
 /**
- * Label besar. Ukuran tidak pernah lebih kecil dari nama barang (DESIGN.md §3),
+ * Label besar. Ukuran tidak pernah lebih kecil dari nama barang (README §7.1),
  * jadi pemanggil tidak boleh mengecilkannya.
  */
 @Composable

@@ -30,7 +30,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Tombol utama: lebar penuh, 56 dp, selalu ada tulisan (DESIGN.md §6).
+ * Tombol utama: lebar penuh, 56 dp, selalu ada tulisan (README §7.4).
  * Maksimal satu per layar; pemakaiannya dijaga di tiap layar.
  */
 @Composable
@@ -86,7 +86,7 @@ fun TombolGaris(
     }
 }
 
-/** Kartu putih, sudut membulat, bayangan sangat tipis (DESIGN.md §11). */
+/** Kartu putih, sudut membulat, bayangan sangat tipis (README §7). */
 @Composable
 fun Kartu(
     modifier: Modifier = Modifier,

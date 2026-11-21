@@ -41,7 +41,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Layar CARI (DESIGN.md §8.1).
+ * Layar CARI (README §7.5).
  *
  * Kotak cari besar di atas dan langsung siap diketik; di bawahnya chip yang
  * bisa diketuk supaya pengguna yang tidak yakin tetap bisa mulai tanpa mengetik.

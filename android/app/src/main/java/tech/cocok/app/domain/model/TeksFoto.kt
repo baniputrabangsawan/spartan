@@ -1,7 +1,7 @@
 package tech.cocok.app.domain.model
 
 /**
- * Foto barang yang sedang dipakai untuk mencari (DESIGN.md §8.1b).
+ * Foto barang yang sedang dipakai untuk mencari (README §7.5).
  *
  * [teks] adalah hasil pembacaan tulisan pada foto: nomor part, merek, atau
  * angka tahun. OCR tetap lokal; hanya kata pencarian yang dikirim ke Google,

@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
- * Skala huruf DESIGN.md §5 — tidak ada teks di bawah 16 sp.
+ * Skala huruf README §7.3 — tidak ada teks di bawah 16 sp.
  * Satuan sp membuat ukuran mengikuti pengaturan huruf HP.
  */
 val CocokTypography = Typography(

@@ -7,7 +7,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
-/** DESIGN.md §6: tinggi tombol minimal 56 dp, jarak antar tombol 12 dp. */
+/** README §7.4: tinggi tombol minimal 56 dp, jarak antar tombol 12 dp. */
 object Dimensi {
     val TombolTinggi = 56.dp
     val KetukMinimum = 56.dp
@@ -35,7 +35,7 @@ private val Skema = lightColorScheme(
 
 /**
  * Tema aplikasi. Selalu terang (tidak ada mode gelap) supaya kontras label
- * status tetap sama di semua HP — keputusan dari DESIGN.md §4/§10.
+ * status tetap sama di semua HP — keputusan dari README §7.2 dan §7.6.
  */
 @Composable
 fun CocokTheme(content: @Composable () -> Unit) {

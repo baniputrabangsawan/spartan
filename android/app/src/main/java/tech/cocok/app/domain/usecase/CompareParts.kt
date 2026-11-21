@@ -10,7 +10,7 @@ import tech.cocok.app.domain.model.Status
 import tech.cocok.app.domain.model.Vehicle
 
 /**
- * Aturan Bandingkan (ARCHITECTURE.md §7.3).
+ * Aturan Bandingkan (README §6.3).
  *
  * Aturan yang tidak boleh dilanggar: "tidak ada data" TIDAK menghasilkan BEDA.
  * BEDA hanya jika kedua sisi punya data PASTI dan grup barangnya tidak beririsan.

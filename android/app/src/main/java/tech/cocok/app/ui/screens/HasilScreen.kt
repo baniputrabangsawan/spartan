@@ -44,7 +44,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Layar HASIL (DESIGN.md §8.2).
+ * Layar HASIL (README §7.5).
  *
  * Satu kartu per barang, foto di kiri, label di bawah nama. Urutan selalu
  * pasti -> mungkin -> belum ada data. Barang "tidak cocok" disembunyikan
@@ -188,7 +188,7 @@ private fun KolomKosongHasil(onTambahSendiri: () -> Unit, onCariInternet: () -> 
     }
 }
 
-/** Pita kuning saat sinyal hilang (DESIGN.md §9). */
+/** Pita kuning saat sinyal hilang (README §7.6). */
 @Composable
 fun PitaOffline() {
     Row(

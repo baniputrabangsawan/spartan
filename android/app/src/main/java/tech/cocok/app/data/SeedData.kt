@@ -14,7 +14,7 @@ import tech.cocok.app.domain.model.Vehicle
 /**
  * Data contoh untuk pengembangan tampilan.
  *
- * Isinya sengaja mengikuti contoh di PRD.md §1 dan ARCHITECTURE.md §7 supaya
+ * Isinya sengaja mengikuti contoh di README §1 dan §6 supaya
  * setiap skenario bisa dicoba: Hilux Vigo vs Reborn, Avanza antar-generasi,
  * barang pengganti merek lain, dan satu kasus "belum ada data".
  *

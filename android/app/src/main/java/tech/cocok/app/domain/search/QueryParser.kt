@@ -10,7 +10,7 @@ import tech.cocok.app.domain.model.Vehicle
  * Hasil pengenalan satu ketikan: mobil, tahun, dan jenis barang yang terbaca.
  *
  * Semua properti boleh kosong. Yang kosong itulah yang ditanyakan ke pengguna
- * lewat pilihan yang bisa diketuk (DESIGN.md §8.1), bukan galat.
+ * lewat pilihan yang bisa diketuk (README §7.5), bukan galat.
  */
 data class ParsedQuery(
     val asli: String,
@@ -27,7 +27,7 @@ data class ParsedQuery(
 }
 
 /**
- * Parser sederhana namun deterministik — aturan ARCHITECTURE.md §7.1 langkah 1–4
+ * Parser sederhana namun deterministik — aturan README §6.1 langkah 1–4
  * tanpa jaringan.
  *
  * Dua keputusan yang menentukan hasilnya:
@@ -137,7 +137,7 @@ class QueryParser(
         }
 }
 
-/** Urutan tampilan kartu (DESIGN.md §8.2): pasti, mungkin, belum ada data. */
+/** Urutan tampilan kartu (README §7.5): pasti, mungkin, belum ada data. */
 object HitOrdering {
     fun urutkan(hits: List<SearchHit>): List<SearchHit> = hits.sortedWith(
         compareByDescending<SearchHit> { it.status.peringkat }

@@ -3,7 +3,7 @@ package tech.cocok.app.domain.search
 /**
  * Normalisasi teks pencarian + kemiripan kata.
  *
- * Semua berjalan di HP (ARCHITECTURE.md §7.1) dan sengaja memakai aturan
+ * Semua berjalan di HP (README §6.1) dan sengaja memakai aturan
  * sederhana yang bisa diuji: huruf kecil, buang tanda baca, lalu bandingkan
  * dengan jarak Levenshtein.
  */

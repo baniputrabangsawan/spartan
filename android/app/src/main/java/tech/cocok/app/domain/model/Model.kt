@@ -1,11 +1,11 @@
 package tech.cocok.app.domain.model
 
 /**
- * Empat label hasil (DESIGN.md §3).
+ * Empat label hasil (README §7.1).
  *
  * [BELUM_ADA_DATA] bukan nilai yang disimpan di database; ia adalah jawaban
  * turunan saat tidak ada kecocokan yang tercatat. Karena itu ia tidak
- * diperlakukan sama dengan [TIDAK_COCOK] (PRD.md §7 aturan 4).
+ * diperlakukan sama dengan [TIDAK_COCOK] (README §6.3).
  */
 enum class Status {
     PASTI,

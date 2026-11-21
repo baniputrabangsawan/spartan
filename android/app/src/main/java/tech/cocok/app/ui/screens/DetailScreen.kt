@@ -47,7 +47,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Layar DETAIL BARANG (DESIGN.md §8.3).
+ * Layar DETAIL BARANG (README §7.5).
  *
  * Jawaban dulu (label besar di atas), penjelasan belakangan. Tombol konfirmasi
  * selalu di bawah dan besar; tombol pemilik hanya muncul untuk pemilik.

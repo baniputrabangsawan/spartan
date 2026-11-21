@@ -52,7 +52,7 @@ import tech.cocok.app.ui.screens.TambahScreen
 import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
-/** Tujuan navigasi tingkat atas. Hanya tiga, sesuai DESIGN.md §7. */
+/** Tujuan navigasi tingkat atas. Hanya tiga, sesuai README §7.4. */
 private enum class Tab(val label: String, val ikon: ImageVector) {
     CARI("CARI", Icons.Filled.Search),
     BANDINGKAN("BANDINGKAN", Icons.Filled.SwapHoriz),
@@ -148,7 +148,7 @@ fun CocokApp(vm: CocokViewModel = viewModel()) {
 
     Surface(color = CocokColors.Latar, modifier = Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
-            // Header dengan tombol pengaturan di kanan atas (DESIGN.md §7).
+            // Header dengan tombol pengaturan di kanan atas (README §7.4).
             Row(
                 modifier = Modifier.fillMaxWidth().padding(start = Dimensi.JarakLayar, end = 8.dp, top = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -306,7 +306,7 @@ private fun MenuBawah(aktif: Tab, onPilih: (Tab) -> Unit) {
     }
 }
 
-/** Pesan singkat hijau/kuning di atas isi layar (DESIGN.md §9). */
+/** Pesan singkat hijau/kuning di atas isi layar (README §7.6). */
 @Composable
 private fun PesanSingkat(teks: String, onTutup: () -> Unit) {
     Surface(

@@ -47,7 +47,7 @@ import tech.cocok.app.ui.theme.CocokColors
 import tech.cocok.app.ui.theme.Dimensi
 
 /**
- * Layar BANDINGKAN (DESIGN.md §8.4).
+ * Layar BANDINGKAN (README §7.5).
  *
  * Dibuat seperti mengisi tiga kotak berurutan, bukan satu formulir panjang.
  * Jawabannya satu blok besar: SAMA / BEDA / BELUM TAHU.

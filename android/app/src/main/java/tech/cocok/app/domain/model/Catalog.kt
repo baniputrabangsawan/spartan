@@ -1,7 +1,7 @@
 package tech.cocok.app.domain.model
 
 /**
- * Satu salinan data lengkap di HP (ARCHITECTURE.md §1).
+ * Satu salinan data lengkap di HP (README §4).
  * Semua use case menerima objek ini; tidak ada akses jaringan di lapisan domain.
  */
 data class Catalog(
@@ -60,7 +60,7 @@ data class Catalog(
         return copy(fitments = fitmentBaru, confirmations = confirmations + konfirmasi)
     }
 
-    /** Hanya pemilik yang boleh menetapkan status final (PRD.md §7 aturan 2). */
+    /** Hanya pemilik yang boleh menetapkan status final (README §6.4). */
     fun tetapkanStatus(fitmentId: String, status: Status, oleh: Role, waktu: String): Catalog {
         if (!oleh.bisaMenetapkanStatus) return this
         if (!status.tersimpan) return this
